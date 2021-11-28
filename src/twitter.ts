@@ -43,7 +43,7 @@ export default class Twitter {
     endpoint: string,
     parameters?: RequestParameters
   ): Promise<T> {
-    const url = new URL(`https://api.twitter.com/2/${endpoint}`);
+    const url = endpoint.match(/^oauth(2)?\//) ? new URL(`https://api.twitter.com/${endpoint}`) : new URL(`https://api.twitter.com/2/${endpoint}`);
     applyParameters(url, parameters);
 
     const json = await fetch(url.toString(), {
@@ -67,7 +67,7 @@ export default class Twitter {
     body: object,
     parameters?: RequestParameters
   ): Promise<T> {
-    const url = new URL(`https://api.twitter.com/2/${endpoint}`);
+    const url = endpoint.match(/^oauth(2)?\//) ? new URL(`https://api.twitter.com/${endpoint}`) : new URL(`https://api.twitter.com/2/${endpoint}`);
     applyParameters(url, parameters);
 
     const json = await fetch(url.toString(), {
